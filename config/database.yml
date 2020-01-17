@@ -12,14 +12,18 @@
 default: &default
   adapter: mysql2
   encoding: utf8mb4
+  charaset: utf8mb4
+  collation: utf8mb4_bin
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
 
 development:
   <<: *default
   database: comfortable_mexican_sofa_sample_development
+  username: root
+  host: '127.0.0.1'
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,6 +31,8 @@ development:
 test:
   <<: *default
   database: comfortable_mexican_sofa_sample_test
+  username: root
+  host: '127.0.0.1'
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -50,5 +56,4 @@ test:
 production:
   <<: *default
   database: comfortable_mexican_sofa_sample_production
-  username: comfortable_mexican_sofa_sample
-  password: <%= ENV['COMFORTABLE_MEXICAN_SOFA_SAMPLE_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
